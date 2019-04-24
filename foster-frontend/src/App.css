@@ -1,0 +1,132 @@
+@import url("https://use.typekit.net/bvf1dex.css");
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,600,700|Roboto");
+
+/* font-family: cooper-black-std, serif;
+
+font-weight: 400;
+
+font-style: italic; */
+/* split */
+@media (min-width: 768px) {
+  .h-md-100 {
+    height: 100vh;
+  }
+}
+
+.btn-round {
+  border-radius: 30px;
+}
+
+.bg-side {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.bg-side-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+}
+
+.text-cyan {
+  color: #35bdff;
+}
+
+.login-container {
+  width: 75%
+}
+
+/**/
+.input-line {
+  width: 75%;
+  background-color: transparent;
+  box-sizing: border-box;
+  border: 2px solid #E6E6E6;
+  transition: 500ms;
+}
+
+.zip-input {
+  width: 35%;
+}
+
+.pas-h {
+  padding-bottom: 0rem !important;
+}
+
+.zip-sign-up {
+  display: none !important;
+}
+
+.line-height-tall {
+  line-height: 3.5;
+}
+
+.text-smaller {
+  font-size: .95rem;
+}
+
+.text-tiny {
+  font-weight: 600;
+  font-size: .85rem;
+}
+
+.a-no-style {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.a-underline-style:hover {
+  color: inherit;
+  text-decoration: underline !important;
+  cursor: pointer !important;
+}
+
+.help-signup {
+  display: none;
+  margin-top: 10px
+}
+
+.pb-4 {
+  display: block;
+}
+
+.t-1 {
+  font-family: cooper-black-std, serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-Poppins {
+  font-family: Poppins;
+  font-weight: 600;
+}
+
+.t-custom-login {
+  font-family: Poppins;
+  position: relative;
+  left: -3%;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.btn {
+  user-select: none;
+  background-color: #000;
+  padding: .675rem .95rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-family: Poppins;
+  font-weight: 800;
+  border-radius: 0px;
+}
+
+.btn:hover {
+  user-select: none;
+  background-color: #26221D;
+  padding: .675rem .95rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-family: Poppins;
+  font-weight: 800;
+  border-radius: 0px;
+}
