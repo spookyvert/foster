@@ -3,14 +3,14 @@ const PLACES_BASE_URL = 'https://cryptic-chamber-27326.herokuapp.com/api/v1/plac
 const USER_PLACES_BASE_URL = 'https://cryptic-chamber-27326.herokuapp.com/api/v1/user_places'
 
 const postOptions = (obj) => {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(obj)
-  }
+	return {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		body: JSON.stringify(obj)
+	}
 }
 
 
@@ -29,31 +29,31 @@ const postOptions = (obj) => {
 //     })
 //   }
 // }
-
-const postUserPlace = (user_id, place_id) => {
-  return {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      user_id: user_id,
-      place_id: place_id
-    })
-  }
-}
-
+//
+// const postUserPlace = (user_id, place_id) => {
+// 		return {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				'Accept': 'application/json'
+// 			},
+// 			body: JSON.stringify({
+// 				user_id: user_id,
+// 				place_id: place_id
+// 			})
+// 		}
+// 	}
 
 
 const adapter = {
-  getUsers: () => fetch(USERS_BASE_URL).then(res => res.json()),
-  getPlaces: () => fetch(PLACES_BASE_URL).then(res => res.json()),
-  postUP: (user_id, place_id) => fetch(USER_PLACES_BASE_URL, postUserPlace(user_id, place_id))
-  // patchKeyword: (newSubject, newKeyword_type, newPurpose) => fetch(KEYWORD_BASE_URL, patchOptions(newSubject, newKeyword_type, newPurpose)),
-  // getIdea: () => fetch(IDEA_BASE_URL),
-  // postIdea: (obj) => fetch(IDEA_BASE_URL, postOptions(obj)).then(res => res.json()),
-  // getSavedIdeas: () => fetch(SAVED_LIST_BASE_URL),
+	getCoords: (addressParams) => {
+		fetch(`https://api.opencagedata.com/geocode/v1/json?q=${addressParams}&key=bf969171e8b3469084ef974ac797dd0f`)
+			.then(res => res.json())
+	},
+	getUsers: () => fetch(USERS_BASE_URL).then(res => res.json()),
+	getPlaces: () => fetch(PLACES_BASE_URL).then(res => res.json()),
+	postPlace: (place_params) => fetch(PLACES_BASE_URL, postOptions(place_params))
+
 }
 
 export default adapter

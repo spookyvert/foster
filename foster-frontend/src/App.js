@@ -1,18 +1,20 @@
 import React, {
-  Component
+	Component
 } from 'react';
 
 import './App.css';
 import Login from './components/Login.js';
+import Main from './components/Main.js';
+import z from 'zipcodes';
+
 import {
-  createBrowserHistory
+	createBrowserHistory
 } from 'history'
 
 import {
-  BrowserRouter,
-  Link,
-  Route,
-  Switch,
+	BrowserRouter,
+	Route,
+	Switch,
 } from 'react-router-dom';
 export const history = createBrowserHistory();
 
@@ -21,130 +23,137 @@ export const history = createBrowserHistory();
 
 export default class App extends Component {
 
-  state = {
-    currentUser: {}
-  }
-
-  componentDidMount() {
-    let token = localStorage.getItem('token')
-    if (token === null) {
-      //
-      // history.push('/login')
+	state = {
+		currentUser: {}
+	}
 
 
-    } else {
-
-      fetch('https://cryptic-chamber-27326.herokuapp.com/api/v1/current_user', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        .then(r => r.json())
-        .then(data => this.setState({
-          currentUser: data
-        }))
-
-      //
-      // history.push('/')
+	componentDidMount() {
+		let token = localStorage.getItem('token')
+		if (token === null) {
+			//
+			// history.push('/login')
 
 
-    }
+		} else {
 
-
-  }
+			fetch('https://cryptic-chamber-27326.herokuapp.com/api/v1/current_user', {
+					headers: {
+						Authorization: `Bearer ${token}`
+					}
+				})
+				.then(r => r.json())
+				.then(data => this.setState({
+					currentUser: data
+				}))
 
 
 
-  signupSubmitHandler = (e, userInfo) => {
-    e.preventDefault()
 
-    console.log(userInfo)
-    //
-    fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/users", {
-        method: "POST",
-        headers: {
-          'Content-Type': "application/json",
-          'Accept': "application/json"
-        },
-        body: JSON.stringify({
-          user: userInfo
-        })
-      })
-      .then(resp => resp.json())
-      .then(userData => {
-        console.log(userData)
-        localStorage.setItem("token", userData.jwt);
-        this.setState({
-          currentUser: userData
-        }, () => {
-          console.log("This is what I'm getting after signing up: ", userData)
-        });
-      });
-  };
-
-  loginSubmitHandler = (e, userInfo) => {
-    e.preventDefault()
-
-    console.log('user info is', userInfo)
+			//
+			// history.push('/')
 
 
-    fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/login", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          accepts: "application/json"
-        },
-        body: JSON.stringify({
-          user: userInfo
-        })
-      })
-      .then(resp => resp.json())
-      .then(userData => {
+		}
 
 
-        console.log('this is from the login', userData);
-        if (userData.jwt) {
-          localStorage.setItem('token', userData.jwt)
-          this.setState({
-            currentUser: userData
-          }, () => console.log('app user login', this.state.currentUser.user))
-        } else {
-          document.querySelector(".help-signup").style.display = "block";
-
-        }
-
-
-      });
+	}
 
 
 
-    console.log(this.state)
 
 
-  };
 
-  handleLogout = () => {
-    this.setState({
-      currentUser: {}
-    })
-    localStorage.removeItem("token");
-    this.props.history.push("/");
-  }
+	signupSubmitHandler = (e, userInfo) => {
+		e.preventDefault()
+
+		console.log(userInfo)
+		//
+		fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/users", {
+				method: "POST",
+				headers: {
+					'Content-Type': "application/json",
+					'Accept': "application/json"
+				},
+				body: JSON.stringify({
+					user: userInfo
+				})
+			})
+			.then(resp => resp.json())
+			.then(userData => {
+				console.log(userData)
+				localStorage.setItem("token", userData.jwt);
+				this.setState({
+					currentUser: userData
+				}, () => {
+					console.log("This is what I'm getting after signing up: ", userData)
+				});
+			});
+	};
+
+	loginSubmitHandler = (e, userInfo) => {
+		e.preventDefault()
+
+		console.log('user info is', userInfo)
 
 
-  render() {
-    console.log("hi")
+		fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/login", {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+					accepts: "application/json"
+				},
+				body: JSON.stringify({
+					user: userInfo
+				})
+			})
+			.then(resp => resp.json())
+			.then(userData => {
 
-    let token = localStorage.getItem('token')
-    if (token) {
-      history.push('/')
-    } else {
-      history.push('/login')
-    }
+
+				console.log('this is from the login', userData);
+				if (userData.jwt) {
+					localStorage.setItem('token', userData.jwt)
+					this.setState({
+						currentUser: userData
+					}, () => console.log('app user login', this.state.currentUser.user))
+				} else {
+					document.querySelector(".help-signup").style.display = "block";
+
+				}
 
 
-    return (
-      <BrowserRouter>
+			});
+
+
+
+		console.log(this.state)
+
+
+	};
+
+	handleLogout = () => {
+		this.setState({
+			currentUser: {}
+		})
+		localStorage.removeItem("token");
+		this.props.history.push("/");
+	}
+
+
+	render() {
+		console.log(this.state.currentUser)
+
+		let token = localStorage.getItem('token')
+		if (token) {
+			history.push('/')
+		} else {
+			history.push('/login')
+		}
+
+
+		return (
+			<BrowserRouter>
           <Switch>
 
 
@@ -154,8 +163,15 @@ export default class App extends Component {
             render={ (props) => <Login {...props} handleLogout={this.handleLogout} loginHandler={this.loginSubmitHandler} signupHandler={this.signupSubmitHandler}/>
             }
             />
-          </Switch>
+
+          <Route
+          exact
+          path='/'
+          render={ (props) => <Main {...props} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
+          }
+          />
+        </Switch>
       </BrowserRouter>
-    )
-  }
+		)
+	}
 }

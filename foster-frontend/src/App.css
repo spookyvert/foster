@@ -86,6 +86,22 @@ font-style: italic; */
   margin-top: 10px
 }
 
+.error-zip {
+  display: none;
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.i-2 {
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+
 .pb-4 {
   display: block;
 }
@@ -94,6 +110,17 @@ font-style: italic; */
   font-family: cooper-black-std, serif;
   font-weight: 400;
   font-style: normal;
+}
+
+.t-2 {
+  font-family: Poppins, serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.i-1 {
+  margin-bottom: 15px;
+  border-radius: 0px;
 }
 
 .font-Poppins {
@@ -129,4 +156,77 @@ font-style: italic; */
   font-family: Poppins;
   font-weight: 800;
   border-radius: 0px;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.nav-logo {
+  margin: auto;
+}
+
+nav {
+  cursor: auto;
+  z-index: 100;
+}
+
+.modal-dialog {
+  margin-top: 25vh;
+}
+
+.form-body {
+  margin: 7%;
+  margin-top: 0%;
+  padding-bottom: 0px;
+}
+
+.modal-footer, .modal-header {
+  border: none
+}
+
+.modal-footer {
+  padding-top: 0px;
+}
+
+.modal-body {
+  padding-bottom: 0px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button:focus, button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.nav-btn {
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  border: 3px solid;
+  padding: 0.25em 0.75em;
+  -moz-box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  -webkit-box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+}
+
+.nav-btn:active {
+  border: 3px solid;
+  -moz-box-shadow: 0px 0px 0px 0px;
+  -webkit-box-shadow: 0px 0px 0px 0px;
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
 }
