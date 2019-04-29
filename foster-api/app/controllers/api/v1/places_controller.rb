@@ -13,7 +13,7 @@ class Api::V1::PlacesController < ApplicationController
   end
 
   def create
-    @place = Idea.create(idea_params)
+    @place = Place.create(place_params)
     if @place.valid?
       render json: @place, status: :created
     else

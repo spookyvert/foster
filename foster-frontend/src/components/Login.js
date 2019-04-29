@@ -1,84 +1,84 @@
 import React, {
-  Component
+	Component
 } from 'react';
 import {
-  Link
+	Link
 } from 'react-router-dom';
 import {
-  Row
+	Row
 } from 'reactstrap';
 
 
 export default class Login extends Component {
-  state = {
-    name: "",
-    password: "",
-    success: "",
-    signup: false,
-    background: "url('https://i.imgur.com/iTJDsU2.gif')"
-  };
+	state = {
+		name: "",
+		password: "",
+		success: "",
+		signup: false,
+		background: "url('../assets/gifs/bg-1.gif')"
+	};
 
-  changeHandler = e => {
+	changeHandler = e => {
 
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
 
-  loginSubmitHandler = e => {
+	loginSubmitHandler = e => {
 
-    e.preventDefault();
-    this.props.loginHandler(e, this.state);
-    this.setState({
-      success: "Done!"
-    })
-  };
+		e.preventDefault();
+		this.props.loginHandler(e, this.state);
+		this.setState({
+			success: "Done!"
+		})
+	};
 
-  signupSubmitHandler = (e) => {
-    e.preventDefault();
+	signupSubmitHandler = (e) => {
+		e.preventDefault();
 
-    this.props.signupHandler(e, this.state);
-    this.setState({
-      success: "Done!"
-    })
-  };
+		this.props.signupHandler(e, this.state);
+		this.setState({
+			success: "Done!"
+		})
+	};
 
-  signUpContent = () => {
-
-
-    document.querySelector(".help-signup").style.display = "none";
-    let z = document.querySelector(".zip-sign-up").style
-    z.setProperty('display', 'block', 'important')
-    document.querySelector(".t-custom-login").innerHTML = "Sign Up"
-    document.querySelector(".login-button").innerHTML = "Sign Up"
-
-    this.setState({
-      signup: !this.state.signup
-    })
-
-  }
-
-  componentDidMount() {
-    let bgArray = [`url('https://i.imgur.com/iTJDsU2.gif')`, `url('https://i.imgur.com/0LSGOgI.gif')`, `url('https://i.imgur.com/fI2ni0A.gif')`, `url('https://i.imgur.com/OBB4wWD.gif')`, `url('https://i.imgur.com/7bDNmaq.gif')`]
-    let selectBG = bgArray[Math.floor(Math.random() * bgArray.length)];
-
-    this.setState({
-      background: selectBG
-
-    })
+	signUpContent = () => {
 
 
-  }
+		document.querySelector(".help-signup").style.display = "none";
+		let z = document.querySelector(".zip-sign-up").style
+		z.setProperty('display', 'block', 'important')
+		document.querySelector(".t-custom-login").innerHTML = "Sign Up"
+		document.querySelector(".login-button").innerHTML = "Sign Up"
+
+		this.setState({
+			signup: !this.state.signup
+		})
+
+	}
+
+	componentDidMount() {
+		let bgArray = [`url('https://i.imgur.com/iTJDsU2.gif')`, `url('https://i.imgur.com/0LSGOgI.gif')`, `url('https://i.imgur.com/fI2ni0A.gif')`, `url('https://i.imgur.com/OBB4wWD.gif')`, `url('https://i.imgur.com/7bDNmaq.gif')`]
+		let selectBG = bgArray[Math.floor(Math.random() * bgArray.length)];
+
+		this.setState({
+			background: selectBG
+
+		})
 
 
-  render() {
-    const formBool = this.state.signup;
-    const bg = {
-      backgroundImage: this.state.background
-    }
+	}
 
-    return (
-      <div class="d-md-flex h-md-100 align-items-center">
+
+	render() {
+		const formBool = this.state.signup;
+		const bg = {
+			backgroundImage: this.state.background
+		}
+
+		return (
+			<div class="d-md-flex h-md-100 align-items-center">
 
   <div class="col-md-6 p-0 bg-side h-md-100"   style={bg} >
     <div className="bg-side-overlay" >
@@ -112,7 +112,7 @@ export default class Login extends Component {
                       <input name="password" type="password" onChange={this.changeHandler} className="input-line text-smaller line-height-tall pl-3 py-0 fg-light-gray" />
                       <br/>
 
-                      <span className="text-tiny help-signup"><a className="a-no-style a-underline-style " onClick={this.signUpContent}> Having trouble logging in? Sign up! </a></span>
+                      <span className="text-tiny help-signup"><button className="a-no-style a-underline-style signup-btn" onClick={this.signUpContent}> Having trouble logging in? Sign up! </button></span>
 
 
 
@@ -156,7 +156,7 @@ export default class Login extends Component {
                 <input name="password" type="password" onChange={this.changeHandler} className="input-line text-smaller line-height-tall pl-3 py-0 fg-light-gray" />
                 <br/>
 
-                <span className="text-tiny help-signup"><a className="a-no-style a-underline-style " onClick={this.signUpContent}> Having trouble logging in? Sign up! </a></span>
+                <span className="text-tiny help-signup"><button className="a-no-style a-underline-style signup-btn" onClick={this.signUpContent}> Having trouble logging in? Sign up! </button></span>
 
 
 
@@ -196,7 +196,7 @@ export default class Login extends Component {
   </div>
 
 </div>
-    )
+		)
 
-  }
+	}
 }

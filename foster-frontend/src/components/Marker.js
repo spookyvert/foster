@@ -29,7 +29,7 @@ export default class Marker extends Component {
 
 
 	render() {
-
+		console.log("here", this.props.place)
 		return (
 			<Popup  latitude={this.props.latitude} longitude={this.props.longitude} closeButton={this.state.closeButton} closeOnClick={this.state.closeOnClick} anchor={this.state.anchor} >
          <div>You are here</div>

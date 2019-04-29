@@ -76,12 +76,16 @@ export default class NewPlace extends Component {
 		} else {
 			// posting the place to db
 			adapter.postPlace(this.state.place);
+
+			this.props.reRender(this.state.place)
 			// adapter.postPlace()
 			this.props.toggle()
 
 		}
 
 	}
+
+
 
 	componentDidMount() {
 		let token = localStorage.getItem('token')
@@ -99,8 +103,6 @@ export default class NewPlace extends Component {
 					},
 					zip: +data.user.zipcode
 
-				}, () => {
-					console.log(this.state)
 				})
 
 
