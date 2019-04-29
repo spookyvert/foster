@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_04_22_201826) do
   create_table "user_places", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "place_id"
+    t.string "sugg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["place_id"], name: "index_user_places_on_place_id"

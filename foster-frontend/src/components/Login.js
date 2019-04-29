@@ -1,9 +1,7 @@
 import React, {
 	Component
 } from 'react';
-import {
-	Link
-} from 'react-router-dom';
+
 import {
 	Row
 } from 'reactstrap';
@@ -11,8 +9,10 @@ import {
 
 export default class Login extends Component {
 	state = {
+
 		name: "",
 		password: "",
+		zipcode: "",
 		success: "",
 		signup: false,
 		background: "url('../assets/gifs/bg-1.gif')"
@@ -21,7 +21,9 @@ export default class Login extends Component {
 	changeHandler = e => {
 
 		this.setState({
+
 			[e.target.name]: e.target.value
+
 		});
 	};
 
@@ -36,8 +38,13 @@ export default class Login extends Component {
 
 	signupSubmitHandler = (e) => {
 		e.preventDefault();
+		let userInfo = {
+			name: this.state.name,
+			password: this.state.password,
+			zipcode: +this.state.zipcode
+		}
 
-		this.props.signupHandler(e, this.state);
+		this.props.signupHandler(e, userInfo);
 		this.setState({
 			success: "Done!"
 		})
@@ -112,7 +119,7 @@ export default class Login extends Component {
                       <input name="password" type="password" onChange={this.changeHandler} className="input-line text-smaller line-height-tall pl-3 py-0 fg-light-gray" />
                       <br/>
 
-                      <span className="text-tiny help-signup"><button className="a-no-style a-underline-style signup-btn" onClick={this.signUpContent}> Having trouble logging in? Sign up! </button></span>
+                      <span className="text-tiny help-signup"><a className="a-no-style a-underline-style " onClick={this.signUpContent}> Having trouble logging in? Sign up! </a></span>
 
 
 
@@ -155,14 +162,6 @@ export default class Login extends Component {
 
                 <input name="password" type="password" onChange={this.changeHandler} className="input-line text-smaller line-height-tall pl-3 py-0 fg-light-gray" />
                 <br/>
-
-                <span className="text-tiny help-signup"><button className="a-no-style a-underline-style signup-btn" onClick={this.signUpContent}> Having trouble logging in? Sign up! </button></span>
-
-
-
-                <br />
-
-
 
 
             </Row>

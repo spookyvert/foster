@@ -2,8 +2,6 @@ import React, {
 	Component
 } from 'react';
 
-import z from 'zipcodes'
-import NodeGeocoder from 'node-geocoder';
 import Marker from './Marker.js'
 import adapter from '../adapters/adapter.js';
 import NewPlace from './modals/NewPlace';
@@ -43,21 +41,36 @@ export default class Main extends Component {
 				}, () => {
 
 					// TRY TO REFACTOR, PROMISE CEPTION
+					// let markerPromises = this.state.places.map(place => {
+					// 	const addressParams = place.address.split(" ").join('+')
+					//
+					// 	return fetch(`https://api.opencagedata.com/geocode/v1/json?q=${addressParams}+${place.zipcode}&key=bf969171e8b3469084ef974ac797dd0f`)
+					// })
 					let markerPromises = this.state.places.map(place => {
 						const addressParams = place.address.split(" ").join('+')
+						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
 
-						return fetch(`https://api.opencagedata.com/geocode/v1/json?q=${addressParams}+${place.zipcode}&key=bf969171e8b3469084ef974ac797dd0f`)
 					})
+
+
 
 
 
 					Promise.all(markerPromises).then(places => {
 
-						Promise.all(places.map(place => place.json())).then(places =>
 
-							this.setState({
-								markers: places.map(place => <Marker key={place.id} latitude={place.results[0].geometry.lat} longitude={place.results[0].geometry.lng}  place={place}/>)
-							})
+						Promise.all(places.map(place => place.json())).then(places => {
+
+
+
+
+
+								this.setState({
+									markers: places.map(place => <Marker key={place.id} latitude={place.results[0].locations[0].latLng.lat} longitude={place.results[0].locations[0].latLng.lng}  place={place}/>)
+								})
+
+
+							}
 
 						)
 
@@ -142,7 +155,7 @@ export default class Main extends Component {
 			   >
 			   <div style={{position: 'absolute', right: 0}}>
 			   <NavigationControl container={document.querySelector('body')}/>
-			</div>
+			 </div>
 			{this.state.markers}
 			<NewPlace modal={this.state.modal} toggle={this.toggle}   reRender={this.reRender} />
 			</ReactMapGL>

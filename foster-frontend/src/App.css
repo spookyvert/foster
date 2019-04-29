@@ -235,3 +235,23 @@ button:focus, button:active {
   top: 5px;
   left: 5px;
 }
+
+.mapboxgl-popup-close-button {
+  display: none
+}
+
+.mapboxgl-popup-content {
+  border-radius: 20px;
+  padding: 25px 17px 3px;
+  cursor: pointer;
+}
+
+.marker-title {
+  position: relative;
+  top: -1vh;
+}
+
+.title-snd {
+  font-family: Poppins;
+  font-weight: 600;
+}

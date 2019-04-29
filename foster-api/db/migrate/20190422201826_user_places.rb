@@ -3,6 +3,7 @@ class UserPlaces < ActiveRecord::Migration[5.2]
     create_table :user_places do |t|
       t.belongs_to :user, foreign_key: true
       t.belongs_to :place, foreign_key: true
+      t.string :sugg
 
       t.timestamps
     end

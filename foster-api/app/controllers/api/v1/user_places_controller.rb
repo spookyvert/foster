@@ -24,6 +24,6 @@ class Api::V1::UserPlacesController < ApplicationController
   private
 
   def user_place_params
-    params.permit(:user_id, :place_id)
+    params.permit(:user_id, :place_id, :sugg)
   end
 end

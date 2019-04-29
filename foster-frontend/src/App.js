@@ -5,7 +5,7 @@ import React, {
 import './App.css';
 import Login from './components/Login.js';
 import Main from './components/Main.js';
-import z from 'zipcodes';
+
 
 import {
 	createBrowserHistory
@@ -67,8 +67,8 @@ export default class App extends Component {
 	signupSubmitHandler = (e, userInfo) => {
 		e.preventDefault()
 
-		console.log(userInfo)
-		//
+
+		console.log(userInfo);
 		fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/users", {
 				method: "POST",
 				headers: {
