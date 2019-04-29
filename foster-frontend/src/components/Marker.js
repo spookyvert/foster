@@ -46,7 +46,7 @@ export default class Marker extends Component {
 
          <span className="font-Poppins marker-title" >{formattedAddress}</span>
 
-					 <MarkerModal modal={this.state.modal} toggle={this.toggle} address={formattedAddress} />
+					 <MarkerModal modal={this.state.modal} toggle={this.toggle} address={formattedAddress} currentUser={this.props.currentUser.user.id} currentMarker={this.props.placeId} place={this.props.place} currentUserZip={this.props.currentUser.user.zipcode} />
 
        </Popup>
 		 </div>

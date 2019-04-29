@@ -66,7 +66,7 @@ export default class Main extends Component {
 
 
 								this.setState({
-									markers: places.map(place => <Marker key={place.id} latitude={place.results[0].locations[0].latLng.lat} longitude={place.results[0].locations[0].latLng.lng}  place={place}/>)
+									markers: places.map((place, idx) => <Marker placeId={this.state.places[idx].id} latitude={place.results[0].locations[0].latLng.lat} longitude={place.results[0].locations[0].latLng.lng} allPlaces={this.state.places} place={place} currentUser={this.props.currentUser}/>)
 								})
 
 

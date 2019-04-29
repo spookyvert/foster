@@ -30,19 +30,16 @@ const postOptions = (obj) => {
 //   }
 // }
 //
-// const postUserPlace = (user_id, place_id) => {
-// 		return {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 				'Accept': 'application/json'
-// 			},
-// 			body: JSON.stringify({
-// 				user_id: user_id,
-// 				place_id: place_id
-// 			})
-// 		}
+// const postUserPlace = (userData) => {
+// 	return {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 			'Accept': 'application/json'
+// 		},
+// 		body: JSON.stringify(userData)
 // 	}
+// }
 
 
 const adapter = {
@@ -52,7 +49,8 @@ const adapter = {
 	},
 	getUsers: () => fetch(USERS_BASE_URL).then(res => res.json()),
 	getPlaces: () => fetch(PLACES_BASE_URL).then(res => res.json()),
-	postPlace: (place_params) => fetch(PLACES_BASE_URL, postOptions(place_params))
+	postPlace: (place_params) => fetch(PLACES_BASE_URL, postOptions(place_params)),
+	postSuggestion: (userData) => fetch(USER_PLACES_BASE_URL, postOptions(userData))
 
 }
 
