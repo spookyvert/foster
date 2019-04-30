@@ -215,11 +215,10 @@ button:focus, button:active {
   text-transform: uppercase;
   color: #000;
   border: 3px solid;
-  padding: 0.25em 0.75em;
-  -moz-box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
-  -webkit-box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
   box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
   position: relative;
+  font-size: 10px;
+  top: -4px;
 }
 
 .signup-btn {
@@ -232,7 +231,8 @@ button:focus, button:active {
   -moz-box-shadow: 0px 0px 0px 0px;
   -webkit-box-shadow: 0px 0px 0px 0px;
   box-shadow: 0px 0px 0px 0px;
-  top: 5px;
+  top: -2px;
+  font-size: 10px;
   left: 5px;
 }
 
@@ -248,7 +248,16 @@ button:focus, button:active {
 
 .marker-title {
   position: relative;
-  top: -1vh;
+  top: -0.7em;
+}
+
+nav {
+  position: absolute !important;
+  width: 100% !important;
+}
+
+.modal-dialog {
+  margin-top: 15vh;
 }
 
 .title-snd {

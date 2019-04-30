@@ -44,11 +44,19 @@ export default class Marker extends Component {
 			<div onClick={this.toggle} >
 			<Popup latitude={this.props.latitude} longitude={this.props.longitude} anchor={this.state.anchor} >
 
-         <span className="font-Poppins marker-title" >{formattedAddress}</span>
+        <span className="font-Poppins marker-title" >{formattedAddress}</span>
 
-					 <MarkerModal modal={this.state.modal} toggle={this.toggle} address={formattedAddress} currentUser={this.props.currentUser.user.id} currentMarker={this.props.placeId} place={this.props.place} currentUserZip={this.props.currentUser.user.zipcode} />
+				<MarkerModal
+					modal={this.state.modal}
+					toggle={this.toggle}
+					address={formattedAddress}
+					currentUser={this.props.currentUser.user.id}
+					currentMarker={this.props.placeId}
+					place={this.props.place}
+					currentUserZip={this.props.currentUser.user.zipcode}
+					/>
 
-       </Popup>
+      </Popup>
 		 </div>
 
 		)
