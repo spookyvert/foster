@@ -8,9 +8,16 @@ import {
 	ModalHeader
 } from 'reactstrap';
 
+import c from '../../assets/json/categories.json';
 import adapter from '../../adapters/adapter.js';
 
+import SuggestionBox from "../SuggestionBox.jsx";
+import pluralize from 'pluralize'
 
+const categoryName = c.map(cat => {
+
+	return pluralize.singular(cat.title)
+})
 export default class NewPlace extends Component {
 
 	state = {
@@ -19,8 +26,8 @@ export default class NewPlace extends Component {
 			zipcode: "",
 			user_id: ""
 		},
-		sugg: "",
-		zip: ""
+		zip: "",
+		currentUser: ""
 
 	};
 
@@ -33,7 +40,9 @@ export default class NewPlace extends Component {
 			this.setState({
 				place: stateCopy
 			});
-		} else if (e.target.name === "zipcode") {
+		}
+
+		if (e.target.name === "zipcode") {
 
 			let stateCopy = {
 				...this.state.place
@@ -44,14 +53,6 @@ export default class NewPlace extends Component {
 				place: stateCopy
 
 			});
-		} else {
-
-			this.setState({
-				sugg: e.target.value
-
-			});
-
-
 		}
 
 	};
@@ -66,8 +67,12 @@ export default class NewPlace extends Component {
 
 		} else {
 
-			// posting the place to db
-			adapter.postPlace(this.state.place);
+			adapter.postPlace(this.state.place)
+
+
+
+
+
 			// don't work
 			this.props.reRender(this.state.place)
 			// adapter.postPlace()
@@ -88,9 +93,12 @@ export default class NewPlace extends Component {
 					place: {
 						user_id: data.user.id
 					},
-					zip: +data.user.zipcode
+					zip: +data.user.zipcode,
+					currentUser: data.user.id
 				})
 			})
+
+
 	}
 
 	render() {
@@ -111,8 +119,12 @@ export default class NewPlace extends Component {
 			               <label for="zipcode" className="t-2">Zipcode</label>
 			               <input type="number" name="zipcode" onChange={this.changeHandler} className="form-control i-2" placeholder="eg. 10128" max="5" />
 			               <span className="text-tiny error-zip"><b>Must</b> be a local for this area.</span>
-			               <label for="sugg" className="t-2 mt-5">What do <b>you</b> want this location to be?</label>
-			               <input type="text" name="sugg" placeholder="eg. Hardware Store" onChange={this.changeHandler} className="form-control i-1" />
+			               <label className="t-2 mt-5">What do <b>you</b> want this location to be?</label>
+
+										 <SuggestionBox
+	 										suggestions={categoryName}
+	 										   placeholder="eg. Hardware Store"
+	 										/>
 			            </div>
 			         </div>
 			      </ModalBody>

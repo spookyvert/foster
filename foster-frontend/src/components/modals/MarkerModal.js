@@ -51,11 +51,6 @@ export default class MarkerModal extends Component {
 
 	}
 
-	suggestionPipeline = (data) => {
-		this.setState({
-			sugg: data
-		}, () => console.log(this.state.sugg))
-	}
 
 	render() {
 
@@ -76,7 +71,7 @@ export default class MarkerModal extends Component {
 
                        <SuggestionBox
                        suggestions={categoryName}
-                       suggestionPipeline={this.suggestionPipeline}
+                       placeholder="eg. Bakery"
                      />
                   </div>
                </div>

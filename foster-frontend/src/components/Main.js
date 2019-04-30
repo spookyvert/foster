@@ -51,6 +51,7 @@ export default class Main extends Component {
 
 
 					Promise.all(markerPromises).then(places => {
+
 						Promise.all(places.map(place => place.json())).then(places => {
 							this.setState({
 								markers: places.map((place, idx) =>
