@@ -93,6 +93,12 @@ font-style: italic; */
   margin-bottom: 10px;
 }
 
+.error {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
 .mt-5 {
   margin-top: 5px;
 }
@@ -263,4 +269,40 @@ nav {
 .title-snd {
   font-family: Poppins;
   font-weight: 600;
+}
+
+.no-suggestions {
+  padding: 0.5rem;
+  padding-left: 2px;
+}
+
+.suggestions {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 143px;
+  overflow-y: auto;
+  padding-left: 0;
+}
+
+.suggestions li {
+  padding: 0.5rem;
+  width: 100%
+}
+
+.sugg {
+  border-radius: 0px;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+  background-color: #e6e6e6;
+  color: #333333;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.suggestions li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
 }

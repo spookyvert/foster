@@ -8,19 +8,22 @@ import {
 	ModalHeader
 } from 'reactstrap';
 
+
 import adapter from '../../adapters/adapter.js';
+import c from '../../assets/json/categories.json';
+
+
+import SuggestionBox from "../SuggestionBox.jsx";
+import pluralize from 'pluralize'
+
+const categoryName = c.map(cat => {
+
+	return pluralize.singular(cat.title)
+})
 
 export default class MarkerModal extends Component {
 
-	state = {
-		sugg: ""
-	};
 
-	changeHandler = e => {
-		this.setState({
-			sugg: e.target.value
-		});
-	};
 
 	handleSubmit = e => {
 		e.preventDefault()
@@ -33,13 +36,12 @@ export default class MarkerModal extends Component {
 
 
 		} else {
-
+			let suggestion = document.querySelector("#suggestionBox").value
 			let userData = {
 				user_id: this.props.currentUser,
 				place_id: this.props.currentMarker,
-				sugg: this.state.sugg
+				sugg: suggestion
 			}
-
 
 			adapter.postSuggestion(userData);
 
@@ -49,7 +51,15 @@ export default class MarkerModal extends Component {
 
 	}
 
+	suggestionPipeline = (data) => {
+		this.setState({
+			sugg: data
+		}, () => console.log(this.state.sugg))
+	}
+
 	render() {
+
+
 
 		return (
 			<Modal isOpen={this.props.modal} toggle={this.props.toggle}>
@@ -63,7 +73,11 @@ export default class MarkerModal extends Component {
                      <br/>
                      <label for="sugg" className="t-2">What Do You Want?</label>
                      <span className="text-tiny error-zip"><b>Must</b> be a local for this area.</span>
-                     <input type="text" name="sugg" onChange={this.changeHandler} className="form-control i-1" placeholder="eg. Bakery" />
+
+                       <SuggestionBox
+                       suggestions={categoryName}
+                       suggestionPipeline={this.suggestionPipeline}
+                     />
                   </div>
                </div>
             </ModalBody>
