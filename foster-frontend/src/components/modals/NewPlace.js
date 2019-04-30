@@ -58,29 +58,7 @@ export default class NewPlace extends Component {
 	};
 
 
-	handleSubmit = e => {
-		e.preventDefault()
 
-
-		if (this.state.place.zipcode !== this.state.zip) {
-			document.querySelector(".error-zip").style.display = "block"
-
-		} else {
-
-			adapter.postPlace(this.state.place)
-
-
-
-
-
-			// don't work
-			this.props.reRender(this.state.place)
-			// adapter.postPlace()
-			this.props.toggle()
-
-		}
-
-	}
 
 
 	componentDidMount() {
@@ -107,7 +85,7 @@ export default class NewPlace extends Component {
 
 			<Modal isOpen={this.props.modal} toggle={this.props.toggle}>
 			   <ModalHeader toggle={this.props.toggle} className="font-heavy t-1 ">New Place <i className="fas fa-city"></i></ModalHeader>
-			   <form onSubmit={this.handleSubmit}>
+			   <form onSubmit={ (e) => this.props.handleSubmit(e, this.state.place,this.state.zip)}>
 			      <ModalBody>
 			         <div className="row">
 			            <div className="form-body">
@@ -117,7 +95,7 @@ export default class NewPlace extends Component {
 			               <label for="address" className="t-2">Address</label>
 			               <input type="text" name="address" onChange={this.changeHandler} className="form-control i-1" placeholder="eg. 123 Sesame Street" />
 			               <label for="zipcode" className="t-2">Zipcode</label>
-			               <input type="number" name="zipcode" onChange={this.changeHandler} className="form-control i-2" placeholder="eg. 10128" max="5" />
+			               <input type="number" name="zipcode" onChange={this.changeHandler} className="form-control i-2" placeholder="eg. 10128"  />
 			               <span className="text-tiny error-zip"><b>Must</b> be a local for this area.</span>
 			               <label className="t-2 mt-5">What do <b>you</b> want this location to be?</label>
 

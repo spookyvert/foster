@@ -29,16 +29,16 @@ const adapter = {
   getUsers: () => fetch(USERS_BASE_URL).then(res => res.json()),
   getPlaces: () => fetch(PLACES_BASE_URL).then(res => res.json()),
   postPlace: placeParams => fetch(PLACES_BASE_URL, postOptions(placeParams))
-    .then(res => res.json())
-    .then((data) => {
-      const suggestion = document.querySelector('#suggestionBox').value;
-      const userData = {
-        user_id: currentUser,
-        place_id: data.id,
-        sugg: suggestion,
-      };
-      adapter.postSuggestion(userData);
-    }),
+    .then(res => res.json()),
+  // .then((data) => {
+  //   const suggestion = document.querySelector('#suggestionBox').value;
+  //   const userData = {
+  //     user_id: currentUser,
+  //     place_id: data.id,
+  //     sugg: suggestion,
+  //   };
+  //   adapter.postSuggestion(userData);
+  // }),
 
   postSuggestion: userData => fetch(USER_PLACES_BASE_URL, postOptions(userData)),
   getCurrentUser: token => fetch(CURRENT_USER, sessionOptions(token)),
@@ -47,11 +47,15 @@ const adapter = {
 
 const token = localStorage.getItem('token');
 
-adapter.getCurrentUser(token)
-  .then(res => res.json())
-  .then((data) => {
-    currentUser = data.user.id;
-  });
 
+if (token === null) {
+  console.log('Please Login');
+} else {
+  adapter.getCurrentUser(token)
+    .then(res => res.json())
+    .then((data) => {
+      currentUser = data.user.id;
+    });
+}
 
 export default adapter;

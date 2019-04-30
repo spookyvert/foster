@@ -30,6 +30,68 @@ export default class Main extends Component {
 		markers: []
 	};
 
+	handleSubmit = (e, state, zip) => {
+		e.preventDefault()
+
+
+		if (state.zipcode !== zip) {
+			document.querySelector(".error-zip").style.display = "block"
+
+		} else {
+			let stateCopy = [...this.state.places]
+			console.log(stateCopy);
+			adapter.postPlace(state).then(res => {
+
+				stateCopy.unshift(res)
+
+
+				this.setState({
+					places: stateCopy
+				})
+
+
+				let markerPromises = this.state.places.map(place => {
+					const addressParams = place.address.split(" ").join('+')
+					return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
+
+				})
+
+				Promise.all(markerPromises).then(places => {
+
+					Promise.all(places.map(place => place.json())).then(places => {
+						this.setState({
+							markers: places.map((place, idx) =>
+
+								<Marker
+											key={idx}
+											placeId={this.state.places[idx].id}
+											latitude={place.results[0].locations[0].latLng.lat}
+											longitude={place.results[0].locations[0].latLng.lng}
+											allPlaces={this.state.places}
+											place={place}
+											currentUser={this.props.currentUser}
+											/>)
+
+						})
+
+					})
+
+
+				})
+
+
+
+			})
+
+
+
+
+			this.toggle()
+
+		}
+
+	}
+
 	componentDidMount() {
 		this._locateUser()
 
@@ -45,10 +107,6 @@ export default class Main extends Component {
 						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
 
 					})
-
-
-
-
 
 					Promise.all(markerPromises).then(places => {
 
@@ -73,6 +131,7 @@ export default class Main extends Component {
 
 				})
 			})
+
 	}
 
 	changeHandler = e => {
@@ -107,18 +166,60 @@ export default class Main extends Component {
 	}
 
 	reRender = (state) => {
+		this.forceUpdate()
+		// adapter.getPlaces()
+		// 	.then(places => {
+		// 		this.setState({
+		// 			places
+		// 		}, () => {
+		// 			console.log("this.state.places:", this.state.places);
+		// 			// TRY TO REFACTOR, PROMISE CEPTION
+		// 			let markerPromises = this.state.places.map(place => {
+		// 				const addressParams = place.address.split(" ").join('+')
+		// 				return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
+		//
+		// 			})
+		// 			console.log("marker promises:", markerPromises);
+		//
+		// 			Promise.all(markerPromises).then(places => {
+		//
+		//
+		// 				Promise.all(places.map(place => place.json())).then(places => {
+		//
+		// 					this.setState({
+		// 						markers: places.map((place, idx) =>
+		//
+		// 							<Marker
+		// 							key={idx}
+		// 							placeId={this.state.places[idx].id}
+		// 							latitude={place.results[0].locations[0].latLng.lat}
+		// 							longitude={place.results[0].locations[0].latLng.lng}
+		// 							allPlaces={this.state.places}
+		// 							place={place}
+		// 							currentUser={this.props.currentUser}
+		// 							/>)
+		//
+		// 					}, () => {
+		// 						console.log(this.state.markers)
+		// 						this.forceUpdate()
+		// 					})
+		//
+		// 				})
+		// 			})
+		//
+		// 		})
+		// 	})
 
-		const stateCopy = [...this.state.places]
-		stateCopy.unshift(state)
+		this.setState(this.state)
+		console.log(this.state.places);
 
-		this.setState({
-			places: stateCopy
-		})
+
 
 	}
 
 
 	render() {
+		console.log(this.state.markers);
 
 		return (
 			<div>
@@ -142,7 +243,7 @@ export default class Main extends Component {
 			   >
 
 			{this.state.markers}
-			<NewPlace modal={this.state.modal} toggle={this.toggle}   reRender={this.reRender} />
+			<NewPlace modal={this.state.modal} toggle={this.toggle}  handleSubmit={this.handleSubmit} reRender={this.reRender} />
 			</ReactMapGL>
 		</div>
 
