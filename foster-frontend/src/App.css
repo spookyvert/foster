@@ -352,6 +352,16 @@ nav {
   bottom: 3vh;
 }
 
+.sugg-ul {
+  padding-left: 0px;
+}
+
 .sugg-item {
-  font-size: 1.5em
+  font-size: 1em;
+  font-weight: 600;
+  list-style: none;
+  background-color: #74d0f091;
+  padding: 5px 12px;
+  border-radius: 6px;
+  margin-top: 7px;
 }

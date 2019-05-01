@@ -162,7 +162,7 @@ export default class MarkerModal extends Component {
 							<ModalBody>
 								 <div className="row">
 										<div className="form-body">
-											 <ul>
+											 <ul class="sugg-ul">
 												 {allSuggestions}
 											 </ul>
 										</div>
