@@ -168,7 +168,7 @@ export default class App extends Component {
           <Route
           exact
           path='/'
-          render={ (props) => <Main {...props} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
+          render={ (props) => <Main {...props} currentUser={this.state.currentUser}  handleLogout={this.handleLogout} />
           }
           />
         </Switch>

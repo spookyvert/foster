@@ -115,7 +115,8 @@ export default class Main extends Component {
 	}
 
 	componentDidMount() {
-		this._locateUser()
+
+
 
 		adapter.getPlaces()
 			.then(places => {
@@ -130,10 +131,14 @@ export default class Main extends Component {
 
 					})
 
+
 					Promise.all(markerPromises).then(places => {
-						console.log('test 1', places);
+
+
+						this._locateUser(this.props.currentUser.user.zipcode)
+
 						return Promise.all(places.map(place => place.json())).then(places => {
-							console.log('test 2', places);
+
 							this.setState({
 								markers: places.map((place, idx) => {
 
@@ -174,21 +179,26 @@ export default class Main extends Component {
 		}));
 	}
 
-	_locateUser = () => {
+	_locateUser = (zip) => {
 
-		navigator.geolocation.getCurrentPosition(position => {
+		fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${zip}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769&location=New York,NY`)
+			.then(res => res.json())
+			.then(data => {
+				let u = data.results[0].locations[0].latLng;
+				console.log(u);
 
-			this.setState({
-				viewport: {
-					width: '100wh',
-					height: `100vh`,
-					longitude: position.coords.longitude,
-					latitude: position.coords.latitude,
-					zoom: 15
-				}
-			});
+				this.setState({
+					viewport: {
+						width: '100wh',
+						height: `100vh`,
+						longitude: u.lng,
+						latitude: u.lat,
+						zoom: 15
+					}
+				}, () => console.log("viewport state", this.state.viewport));
 
-		});
+			})
+
 	}
 
 

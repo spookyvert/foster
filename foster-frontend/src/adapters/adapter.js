@@ -20,17 +20,6 @@ const sessionOptions = token => ({
 });
 
 let currentUser;
-//
-// .then(res => res.json())
-// .then((data) => {
-//   const suggestion = document.querySelector('#suggestionBox').value;
-//   const userData = {
-//     user_id: currentUser,
-//     place_id: data.id,
-//     sugg: suggestion,
-//   };
-//   adapter.postSuggestion(userData);
-// })
 
 const adapter = {
   getCoords: (addressParams) => {

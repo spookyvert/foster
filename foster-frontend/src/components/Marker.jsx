@@ -78,8 +78,6 @@ export default class Marker extends Component {
 
 	render() {
 		let formattedAddress = this.props.place.results[0].locations[0].street;
-		console.log(this.state.poll.length);
-
 
 		return (
 			<div onClick={this.toggle} >
