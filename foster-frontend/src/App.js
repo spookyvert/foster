@@ -3,8 +3,8 @@ import React, {
 } from 'react';
 
 import './App.css';
-import Login from './components/Login.js';
-import Main from './components/Main.js';
+import Login from './components/Login';
+import Main from './components/Main';
 
 
 import {

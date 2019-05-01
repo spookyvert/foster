@@ -48,7 +48,6 @@ class Autocomplete extends Component {
 			userInput: e.currentTarget.value
 		}, () => {
 
-			this.props.suggestionPipeline(this.state.userInput)
 
 
 		});
@@ -157,6 +156,7 @@ class Autocomplete extends Component {
           className="form-control i-1"
           onKeyDown={onKeyDown}
           value={userInput}
+					id="suggestionBox"
         />
         {suggestionsListComponent}
       </Fragment>
