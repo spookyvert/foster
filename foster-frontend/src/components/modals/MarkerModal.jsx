@@ -63,7 +63,13 @@ export default class MarkerModal extends Component {
 
 
 					}
+					this.props.trigger()
+					console.log("here!");
 				})
+
+
+
+
 
 
 

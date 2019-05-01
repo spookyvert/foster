@@ -31,6 +31,8 @@ export default class Main extends Component {
 		markers: []
 	};
 
+
+
 	handleSubmit = (e, state, zip) => {
 		e.preventDefault()
 
@@ -45,12 +47,10 @@ export default class Main extends Component {
 				.then(res => res.json())
 				.then(data => {
 					tmpID = data.id;
-					console.log("tmpid uno", tmpID);
 					return data
 				})
 				.then(final => {
-					console.log("tmpid dos", tmpID);
-					console.log("final", final);
+
 					const suggestion = document.querySelector('#suggestionBox').value;
 					const userData = {
 						user_id: this.props.currentUser.user.id,
@@ -66,7 +66,7 @@ export default class Main extends Component {
 
 					this.setState({
 						places: stateCopy
-					}, () => console.log(this.state.places))
+					})
 
 
 					let markerPromises = this.state.places.map(place => {
@@ -146,6 +146,7 @@ export default class Main extends Component {
 									allPlaces={this.state.places}
 									place={place}
 									currentUser={this.props.currentUser}
+									trigger = {this.trigger}
 									/>
 								})
 

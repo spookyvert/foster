@@ -25,6 +25,26 @@ export default class Marker extends Component {
 		}));
 	}
 
+	trigger = () => {
+		adapter.getMarkerSuggestions()
+			.then(data => {
+
+				let tmp = [...this.state.poll]
+				tmp.unshift(data)
+
+				let stateCopy = tmp[0].filter(s => s.place_id === this.props.placeId);
+
+
+				this.setState({
+					poll: stateCopy
+				});
+
+			})
+
+	}
+
+
+
 
 	changeHandler = e => {
 
@@ -76,6 +96,7 @@ export default class Marker extends Component {
 					place={this.props.place}
 					currentUserZip={this.props.currentUser.user.zipcode}
 					poll = {this.state.poll}
+					trigger = {this.trigger}
 					/>
 
       </Popup>
