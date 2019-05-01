@@ -150,11 +150,13 @@ font-style: italic; */
 }
 
 .btn {
+  -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
   background-color: #000;
   padding: .675rem .95rem;
-  font-size: 1.4rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1em;
   font-family: Poppins;
   font-weight: 800;
   border-radius: 0px;
@@ -164,8 +166,8 @@ font-style: italic; */
   user-select: none;
   background-color: #26221D;
   padding: .675rem .95rem;
-  font-size: 1.4rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1em;
   font-family: Poppins;
   font-weight: 800;
   border-radius: 0px;
@@ -365,4 +367,58 @@ nav {
   border-radius: 6px;
   margin-top: 7px;
   text-align: center;
+}
+
+.collapse:not(.show) {
+  display: block;
+}
+
+.navbar-collapse {
+  -ms-flex-preferred-size: 100%;
+  flex-basis: unset;
+  -ms-flex-positive: 1;
+  flex-grow: unset;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.text-right-logout {
+  position: absolute;
+  right: 5vh;
+  top: 1vh;
+}
+
+.text-stay-new {
+  position: absolute;
+}
+
+#m-new-place {
+  display: none;
+}
+
+#m-logout {
+  display: none
+}
+
+#logout-btn {
+  display: block;
+}
+
+@media only screen and (max-device-width : 667px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+  #logout-btn {
+    display: none;
+  }
+
+  #m-logout {
+    display: inline-block;
+  }
+
+  #m-new-place {
+    display: inline-block;
+    left: -15vh;
+  }
+
+  #new-place {
+    display: none;
+  }
 }

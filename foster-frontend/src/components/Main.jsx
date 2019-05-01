@@ -198,18 +198,18 @@ export default class Main extends Component {
 			<div>
 		   <nav className="navbar navbar-expand-lg navbar-light bg-light">
 		      <h2 className="t-1 nav-logo fg-dark-navy font-weight-600 mx-4 text-uppercase text-spaced">Foster</h2>
-		      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		      <span className="navbar-toggler-icon"></span>
-		      </button>
+
 		      <div className="collapse navbar-collapse" id="navbarSupportedContent">
 		         <ul className="navbar-nav mr-auto">
 		            <li className="nav-item active">
-		               <button className="nav-btn" onClick={this.toggle}> New Place! </button>
+		               <button className="nav-btn " id="new-place" onClick={this.toggle}> New Place! </button>
+									 <button className="nav-btn " id="m-new-place" onClick={this.toggle}><i class="fas fa-plus"></i></button>
 		            </li>
 		         </ul>
 
 						 <div>
-							  <button className="btn btn-primary  logout-btn login-button" onClick={this.props.handleLogout}><i class="fas fa-door-open"></i> Logout </button>
+							  <button id="logout-btn" className="btn btn-primary  logout-btn login-button text-right-logout " onClick={this.props.handleLogout}><i class="fas fa-door-open"></i> Logout </button>
+								<button  id="m-logout" className="btn btn-primary  logout-btn login-button text-right-logout" onClick={this.props.handleLogout}><i class="fas fa-door-open"></i></button>
 						 </div>
 		      </div>
 		   </nav>
