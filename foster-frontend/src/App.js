@@ -133,16 +133,17 @@ export default class App extends Component {
 	};
 
 	handleLogout = () => {
+		console.log("i've been hit");
 		this.setState({
 			currentUser: {}
 		})
 		localStorage.removeItem("token");
-		this.props.history.push("/");
+		history.push("/");
 	}
 
 
 	render() {
-		console.log(this.state.currentUser)
+		// console.log(this.state.currentUser)
 
 		let token = localStorage.getItem('token')
 		if (token) {

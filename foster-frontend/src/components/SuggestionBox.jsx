@@ -153,10 +153,11 @@ class Autocomplete extends Component {
           name="sugg"
           onChange={this.onChange}
           placeholder={this.props.placeholder}
-          className="form-control i-1"
+          className="form-control"
           onKeyDown={onKeyDown}
           value={userInput}
 					id="suggestionBox"
+					autocomplete="off"
         />
         {suggestionsListComponent}
       </Fragment>

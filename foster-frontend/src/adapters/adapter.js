@@ -31,6 +31,7 @@ let currentUser;
 //   };
 //   adapter.postSuggestion(userData);
 // })
+
 const adapter = {
   getCoords: (addressParams) => {
     fetch(`https://api.opencagedata.com/geocode/v1/json?q=${addressParams}&key=bf969171e8b3469084ef974ac797dd0f`)
@@ -39,9 +40,9 @@ const adapter = {
   getUsers: () => fetch(USERS_BASE_URL).then(res => res.json()),
   getPlaces: () => fetch(PLACES_BASE_URL).then(res => res.json()),
   postPlace: placeParams => fetch(PLACES_BASE_URL, postOptions(placeParams)),
-
-  postSuggestion: userData => fetch(USER_PLACES_BASE_URL, postOptions(userData)),
+  postSuggestion: userData => fetch(USER_PLACES_BASE_URL, postOptions(userData)).then(res => res.json()),
   getCurrentUser: token => fetch(CURRENT_USER, sessionOptions(token)),
+  getMarkerSuggestions: () => fetch(USER_PLACES_BASE_URL).then(res => res.json()),
 
 };
 

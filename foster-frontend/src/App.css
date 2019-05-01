@@ -93,6 +93,13 @@ font-style: italic; */
   margin-bottom: 10px;
 }
 
+.error-submit {
+  display: none;
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
 .error {
   color: red;
   margin-top: 5px;
@@ -277,13 +284,21 @@ nav {
 }
 
 .suggestions {
-  border: 1px solid #999;
-  border-top-width: 0;
+  border: 1px solid #ced4da;
   list-style: none;
   margin-top: 0;
   max-height: 143px;
   overflow-y: auto;
   padding-left: 0;
+}
+
+#suggestionBox {
+  border-radius: 0px;
+}
+
+#suggestionBox:focus, #suggestionBox:active {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .suggestions li {
@@ -303,6 +318,40 @@ nav {
   font-weight: 700;
 }
 
-.suggestions li:not(:last-of-type) {
-  border-bottom: 1px solid #999;
+.logout-btn {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: #8D030B;
+  padding: 0em -0.05rem;
+  font-size: 0.75em;
+  line-height: 1.5;
+  font-family: Poppins;
+  font-weight: 800;
+  border-radius: 0px;
+  border: none;
+}
+
+.logout-btn:hover, .logout-btn:focus, .logout-btn:active {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: #590107;
+  padding: 0em -0.05rem;
+  font-size: 0.75em;
+  line-height: 1.5;
+  font-family: Poppins;
+  font-weight: 800;
+  border-radius: 0px;
+  border: none;
+}
+
+.all-sugg-btn {
+  position: absolute;
+  left: 3vh;
+  bottom: 3vh;
+}
+
+.sugg-item {
+  font-size: 1.5em
 }
