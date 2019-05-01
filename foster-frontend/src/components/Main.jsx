@@ -8,6 +8,7 @@ import NewPlace from './modals/NewPlace';
 
 import ReactMapGL from 'react-map-gl';
 
+let tmpID;
 export default class Main extends Component {
 
 	static defaultProps = {
@@ -43,18 +44,24 @@ export default class Main extends Component {
 			adapter.postPlace(state)
 				.then(res => res.json())
 				.then(data => {
-
+					tmpID = data.id;
+					console.log("tmpid uno", tmpID);
+					return data
+				})
+				.then(final => {
+					console.log("tmpid dos", tmpID);
+					console.log("final", final);
 					const suggestion = document.querySelector('#suggestionBox').value;
 					const userData = {
 						user_id: this.props.currentUser.user.id,
-						place_id: data.id,
+						place_id: tmpID,
 						sugg: suggestion,
 					};
 					adapter.postSuggestion(userData);
 
 					let stateCopy = [...this.state.places]
 
-					stateCopy.unshift(data)
+					stateCopy.unshift(final)
 
 
 					this.setState({
@@ -67,23 +74,29 @@ export default class Main extends Component {
 						const addressParams = place.address.split(" ").join('+')
 						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
 
-					})
+					}).reverse()
 
 					Promise.all(markerPromises).then(places => {
 
 						Promise.all(places.map(place => place.json())).then(places => {
-							this.setState({
-								markers: places.map((place, idx) =>
 
-									<Marker
+
+
+
+							this.setState({
+								markers: places.map((place, idx) => {
+
+
+									return <Marker
 												key={idx}
-												placeId={this.state.places[idx].id}
+												placeId={tmpID}
 												latitude={place.results[0].locations[0].latLng.lat}
 												longitude={place.results[0].locations[0].latLng.lng}
 												allPlaces={this.state.places}
 												place={place}
 												currentUser={this.props.currentUser}
-												/>)
+												/>
+								})
 
 							})
 
@@ -92,6 +105,8 @@ export default class Main extends Component {
 
 					})
 				})
+
+
 
 			this.toggle()
 
@@ -108,7 +123,7 @@ export default class Main extends Component {
 					places
 				}, () => {
 
-					// TRY TO REFACTOR, PROMISE CEPTION
+
 					let markerPromises = this.state.places.map(place => {
 						const addressParams = place.address.split(" ").join('+')
 						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
@@ -116,12 +131,14 @@ export default class Main extends Component {
 					})
 
 					Promise.all(markerPromises).then(places => {
-
-						Promise.all(places.map(place => place.json())).then(places => {
+						console.log('test 1', places);
+						return Promise.all(places.map(place => place.json())).then(places => {
+							console.log('test 2', places);
 							this.setState({
-								markers: places.map((place, idx) =>
+								markers: places.map((place, idx) => {
 
-									<Marker
+
+									return <Marker
 									key={idx}
 									placeId={this.state.places[idx].id}
 									latitude={place.results[0].locations[0].latLng.lat}
@@ -129,7 +146,8 @@ export default class Main extends Component {
 									allPlaces={this.state.places}
 									place={place}
 									currentUser={this.props.currentUser}
-									/>)
+									/>
+								})
 
 							})
 
