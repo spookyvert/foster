@@ -92,6 +92,8 @@ export default class App extends Component {
 				localStorage.setItem("token", userData.jwt);
 				this.setState({
 					currentUser: userData
+				}, () => {
+					window.location.reload();
 				});
 			});
 	};
@@ -122,7 +124,7 @@ export default class App extends Component {
 					this.setState({
 						currentUser: userData
 					}, () => {
-						//
+
 						window.location.reload();
 
 					})

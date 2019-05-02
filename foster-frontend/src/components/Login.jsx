@@ -151,7 +151,7 @@ export default class Login extends Component {
 				            </Row>
 
 					          <Row className="pb-4">
-					            <button className="btn btn-primary login-button"> Login
+					            <button className="btn btn-primary login-button"> Sign Up
 					            </button>
 					          </Row>
 									</form>
