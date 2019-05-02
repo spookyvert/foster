@@ -20,7 +20,7 @@ export const history = createBrowserHistory();
 
 
 
-
+let zipcode;
 export default class App extends Component {
 
 	state = {
@@ -110,13 +110,20 @@ export default class App extends Component {
 			.then(resp => resp.json())
 			.then(userData => {
 
+				zipcode = userData.user.zipcode;
+
 
 				console.log('this is from the login', userData);
 				if (userData.jwt) {
 					localStorage.setItem('token', userData.jwt)
 					this.setState({
 						currentUser: userData
-					}, () => console.log('app user login', this.state.currentUser.user))
+					}, () => {
+						//
+						window.location.reload();
+
+						console.log('app user login', this.state.currentUser.user)
+					})
 				} else {
 					document.querySelector(".help-signup").style.display = "block";
 
@@ -136,9 +143,10 @@ export default class App extends Component {
 		console.log("i've been hit");
 		this.setState({
 			currentUser: {}
-		})
+		}, () => window.location.reload())
 		localStorage.removeItem("token");
-		history.push("/");
+		history.push("/login");
+
 	}
 
 
@@ -148,9 +156,13 @@ export default class App extends Component {
 		let token = localStorage.getItem('token')
 		if (token) {
 			history.push('/')
+
 		} else {
 			history.push('/login')
+
+
 		}
+
 
 
 		return (
@@ -168,7 +180,7 @@ export default class App extends Component {
           <Route
           exact
           path='/'
-          render={ (props) => <Main {...props} currentUser={this.state.currentUser}  handleLogout={this.handleLogout} />
+          render={ (props) => <Main {...props} currentUser={this.state.currentUser} zipcode={zipcode} handleLogout={this.handleLogout} />
           }
           />
         </Switch>

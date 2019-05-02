@@ -12,12 +12,12 @@ import ReactMapGL from 'react-map-gl';
 let tmpID;
 export default class Main extends Component {
 
-	static defaultProps = {
-		currentUser: {
-			user: {}
-		}
-	}
-
+	// static defaultProps = {
+	// 	currentUser: {
+	// 		user: {}
+	// 	}
+	// }
+	//
 
 	state = {
 		places: [],
@@ -165,28 +165,32 @@ export default class Main extends Component {
 
 	}
 
+	_flyZip = () => {
+
+		fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${this.props.currentUser.user.zipcode}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769&location=New York,NY`)
+			.then(res => res.json())
+			.then(data => {
+				let u = data.results[0].locations[0].latLng;
+				console.log(u);
+
+				this.setState({
+					viewport: {
+						width: '100wh',
+						height: `100vh`,
+						longitude: u.lng,
+						latitude: u.lat,
+						zoom: 13
+					}
+				}, () => console.log("viewport state", this.state.viewport));
+
+			})
+	}
 
 
 
 	_locateUser = (zip) => {
 
-		// fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${zip}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769&location=New York,NY`)
-		// 	.then(res => res.json())
-		// 	.then(data => {
-		// 		let u = data.results[0].locations[0].latLng;
-		// 		console.log(u);
-		//
-		// 		this.setState({
-		// 			viewport: {
-		// 				width: '100wh',
-		// 				height: `100vh`,
-		// 				longitude: u.lng,
-		// 				latitude: u.lat,
-		// 				zoom: 15
-		// 			}
-		// 		}, () => console.log("viewport state", this.state.viewport));
-		//
-		// 	})
+
 
 
 		navigator.geolocation.getCurrentPosition(position => {
@@ -217,6 +221,7 @@ export default class Main extends Component {
 
 	render() {
 
+
 		return (
 			<div>
 		   <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -241,6 +246,7 @@ export default class Main extends Component {
 			   {...this.state.viewport}
 			   onViewportChange={(viewport) => this.setState({viewport})}
 			   >
+				 <button id="fly-to-zip" class="zip-btn" onClick={this._flyZip}><i class="fas fa-map-pin"></i></button>
 
 			{this.state.markers}
 			<NewPlace modal={this.state.modal} toggle={this._toggle}  handleSubmit={this.handleSubmit} reRender={this.reRender} />

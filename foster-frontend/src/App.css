@@ -320,7 +320,7 @@ nav {
   font-weight: 700;
 }
 
-.logout-btn {
+.logout-btn, .zip-btn {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -334,7 +334,7 @@ nav {
   border: none;
 }
 
-.logout-btn:hover, .logout-btn:focus, .logout-btn:active {
+.logout-btn:hover, .logout-btn:focus, .logout-btn:active, .zip-btn:hover, .zip-btn:focus, .zip-btn:active {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -346,6 +346,11 @@ nav {
   font-weight: 800;
   border-radius: 0px;
   border: none;
+}
+
+.zip-btn {
+  padding: 10px;
+  color: white;
 }
 
 .all-sugg-btn {
@@ -421,4 +426,9 @@ nav {
   #new-place {
     display: none;
   }
+}
+
+#fly-to-zip {
+  position: absolute;
+  top: 50%
 }
