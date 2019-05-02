@@ -68,6 +68,7 @@ export default class App extends Component {
 		e.preventDefault()
 
 
+
 		fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/users", {
 				method: "POST",
 				headers: {
@@ -78,14 +79,19 @@ export default class App extends Component {
 					user: userInfo
 				})
 			})
-			.then(resp => resp.json())
+			.then(resp => {
+				console.log(resp.status);
+				if (resp.status === 406) {
+					document.querySelector(".error-username").style.display = "block";
+				}
+
+				return resp.json()
+			})
 			.then(userData => {
 
 				localStorage.setItem("token", userData.jwt);
 				this.setState({
 					currentUser: userData
-				}, () => {
-
 				});
 			});
 	};
@@ -116,9 +122,8 @@ export default class App extends Component {
 					this.setState({
 						currentUser: userData
 					}, () => {
-
+						//
 						window.location.reload();
-
 
 					})
 				} else {
@@ -128,6 +133,7 @@ export default class App extends Component {
 
 
 			});
+
 
 
 
@@ -149,11 +155,13 @@ export default class App extends Component {
 	render() {
 
 		let token = localStorage.getItem('token')
-		if (token) {
-			history.push('/')
+		if (token === null || token === 'undefined') {
+			console.log('Please Login');
+			history.push('/login');
 
 		} else {
-			history.push('/login')
+			history.push('/')
+
 
 
 		}
@@ -175,7 +183,7 @@ export default class App extends Component {
           <Route
           exact
           path='/'
-          render={ (props) => <Main {...props} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
+          render={ (props) => <Main {...props} currentUser={this.state.currentUser}  handleLogout={this.handleLogout} />
           }
           />
         </Switch>

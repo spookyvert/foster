@@ -129,7 +129,11 @@ export default class Login extends Component {
 				                <label htmlFor="text" className="fg-dark-navy font-Poppins d-block text-left text-smaller text-uppercase my-1"> Username </label>
 
 				                <input name="name" type="text" onChange={this.changeHandler} className="input-line font-Roboto text-smaller line-height-tall pl-3 py-0 fg-light-gray" />
+												<br/>
+												<span className="text-tiny error-username">Username is already <b>taken</b></span>
+
 				            </Row>
+
 
 				            <Row className="pb-4 pas-h">
 				                <label for="password" className="fg-dark-navy  font-Poppins d-block text-left text-smaller text-uppercase my-1"> Password

@@ -168,7 +168,7 @@ export default class MarkerModal extends Component {
 							<ModalBody>
 								 <div className="row">
 										<div className="form-body">
-											 <ul class="sugg-ul">
+											 <ul class="sugg-ul format-ul ">
 												 {allSuggestions}
 											 </ul>
 										</div>
@@ -177,7 +177,7 @@ export default class MarkerModal extends Component {
 							<ModalFooter>
 
 
-								<span class="all-sugg-btn text-tiny">	<a onClick={this.toggleCard} className="a-no-style a-underline-style ">New Suggestions</a></span>
+								<span class="all-sugg-btn text-tiny">	<a onClick={this.toggleCard} className="a-no-style a-underline-style ">Add New Suggestion</a></span>
 
 							</ModalFooter>
 					 </form>

@@ -93,6 +93,13 @@ font-style: italic; */
   margin-bottom: 10px;
 }
 
+.error-username {
+  display: none;
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
 .error-submit {
   display: none;
   color: red;
@@ -430,5 +437,39 @@ nav {
 
 #fly-to-zip {
   position: absolute;
-  top: 50%
+  top: 40vh;
+}
+
+.format-ul {
+  display: block;
+  /* Remove bullet points; allow greater control of positioning */
+  padding: 0;
+  /* Override defaults for lists */
+  margin: 0;
+  /* Override defaults for lists */
+  width: 100%;
+  /* Get the row full width */
+}
+
+.format-ul li {
+  display: inline-block;
+  /* Get all images to show in a row */
+  text-align: center;
+  /* Centre align the images */
+}
+
+@media (max-width: 960px) and (min-width: 501px) {
+  .format-ul li {
+    width: 50%;
+  }
+
+  /* Show 2 logos per row on medium devices (tablets, phones in landscape) */
+}
+
+@media (max-width: 500px) {
+  .format-ul li {
+    width: 100%;
+  }
+
+  /* On small screens, show one logo per row */
 }
