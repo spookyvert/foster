@@ -8,6 +8,7 @@ import NewPlace from './modals/NewPlace';
 
 import ReactMapGL from 'react-map-gl';
 
+
 let tmpID;
 export default class Main extends Component {
 
@@ -32,6 +33,56 @@ export default class Main extends Component {
 	};
 
 
+	componentDidMount() {
+
+		this._locateUser()
+
+		adapter.getPlaces()
+			.then(places => {
+				this.setState({
+					places
+				}, () => {
+
+
+					let markerPromises = this.state.places.map(place => {
+						const addressParams = place.address.split(" ").join('+')
+						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
+
+					})
+
+
+					Promise.all(markerPromises).then(places => {
+
+
+
+
+						return Promise.all(places.map(place => place.json())).then(places => {
+
+							this.setState({
+								markers: places.map((place, idx) => {
+
+
+									return <Marker
+									key={idx}
+									placeId={this.state.places[idx].id}
+									latitude={place.results[0].locations[0].latLng.lat}
+									longitude={place.results[0].locations[0].latLng.lng}
+									allPlaces={this.state.places}
+									place={place}
+									currentUser={this.props.currentUser}
+									trigger = {this.trigger}
+									/>
+								})
+
+							})
+
+						})
+					})
+
+				})
+			})
+
+	}
 
 	handleSubmit = (e, state, zip) => {
 		e.preventDefault()
@@ -108,97 +159,59 @@ export default class Main extends Component {
 
 
 
-			this.toggle()
+			this._toggle()
 
 		}
 
 	}
 
-	componentDidMount() {
 
 
 
-		adapter.getPlaces()
-			.then(places => {
-				this.setState({
-					places
-				}, () => {
+	_locateUser = (zip) => {
+
+		// fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${zip}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769&location=New York,NY`)
+		// 	.then(res => res.json())
+		// 	.then(data => {
+		// 		let u = data.results[0].locations[0].latLng;
+		// 		console.log(u);
+		//
+		// 		this.setState({
+		// 			viewport: {
+		// 				width: '100wh',
+		// 				height: `100vh`,
+		// 				longitude: u.lng,
+		// 				latitude: u.lat,
+		// 				zoom: 15
+		// 			}
+		// 		}, () => console.log("viewport state", this.state.viewport));
+		//
+		// 	})
 
 
-					let markerPromises = this.state.places.map(place => {
-						const addressParams = place.address.split(" ").join('+')
-						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
+		navigator.geolocation.getCurrentPosition(position => {
 
-					})
+			this.setState({
+				viewport: {
+					width: '100wh',
+					height: `100vh`,
+					longitude: position.coords.longitude,
+					latitude: position.coords.latitude,
+					zoom: 15
+				}
+			});
 
-
-					Promise.all(markerPromises).then(places => {
-
-
-						this._locateUser(this.props.currentUser.user.zipcode)
-
-						return Promise.all(places.map(place => place.json())).then(places => {
-
-							this.setState({
-								markers: places.map((place, idx) => {
-
-
-									return <Marker
-									key={idx}
-									placeId={this.state.places[idx].id}
-									latitude={place.results[0].locations[0].latLng.lat}
-									longitude={place.results[0].locations[0].latLng.lng}
-									allPlaces={this.state.places}
-									place={place}
-									currentUser={this.props.currentUser}
-									trigger = {this.trigger}
-									/>
-								})
-
-							})
-
-						})
-					})
-
-				})
-			})
+		});
 
 	}
 
-	changeHandler = e => {
+	// removed changeHandler
 
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	};
-
-	toggle = () => {
+	_toggle = () => {
 
 		this.setState(prevState => ({
 			modal: !prevState.modal
 		}));
-	}
-
-	_locateUser = (zip) => {
-
-		fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${zip}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769&location=New York,NY`)
-			.then(res => res.json())
-			.then(data => {
-				let u = data.results[0].locations[0].latLng;
-				console.log(u);
-
-				this.setState({
-					viewport: {
-						width: '100wh',
-						height: `100vh`,
-						longitude: u.lng,
-						latitude: u.lat,
-						zoom: 15
-					}
-				}, () => console.log("viewport state", this.state.viewport));
-
-			})
-
 	}
 
 
@@ -212,8 +225,8 @@ export default class Main extends Component {
 		      <div className="collapse navbar-collapse" id="navbarSupportedContent">
 		         <ul className="navbar-nav mr-auto">
 		            <li className="nav-item active">
-		               <button className="nav-btn " id="new-place" onClick={this.toggle}> New Place! </button>
-									 <button className="nav-btn " id="m-new-place" onClick={this.toggle}><i class="fas fa-plus"></i></button>
+		               <button className="nav-btn " id="new-place" onClick={this._toggle}> New Place! </button>
+									 <button className="nav-btn " id="m-new-place" onClick={this._toggle}><i class="fas fa-plus"></i></button>
 		            </li>
 		         </ul>
 
@@ -230,7 +243,7 @@ export default class Main extends Component {
 			   >
 
 			{this.state.markers}
-			<NewPlace modal={this.state.modal} toggle={this.toggle}  handleSubmit={this.handleSubmit} reRender={this.reRender} />
+			<NewPlace modal={this.state.modal} toggle={this._toggle}  handleSubmit={this.handleSubmit} reRender={this.reRender} />
 			</ReactMapGL>
 		</div>
 

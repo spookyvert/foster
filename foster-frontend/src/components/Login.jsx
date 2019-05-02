@@ -9,6 +9,7 @@ import {
 
 export default class Login extends Component {
 	state = {
+
 		name: "",
 		password: "",
 		zipcode: "",
@@ -82,9 +83,9 @@ export default class Login extends Component {
 			<div className="d-md-flex h-md-100 align-items-center">
 
 		  <div className="col-md-6 p-0 bg-side h-md-100"   style={bg} >
-		    <div className="bg-side-overlay" >
+
 		      <div className=" text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center"></div>
-		    </div>
+
 		  </div>
 
   		<div className="col-md-6 p-0 bg-white h-md-100 loginarea">

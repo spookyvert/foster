@@ -18,7 +18,26 @@ export default class Marker extends Component {
 		poll: []
 	};
 
-	toggle = () => {
+	componentDidMount() {
+
+		adapter.getMarkerSuggestions()
+			.then(data => {
+
+				let tmp = [...this.state.poll]
+				tmp.unshift(data)
+
+				let stateCopy = tmp[0].filter(s => s.place_id === this.props.placeId);
+
+				this.setState({
+					poll: stateCopy
+				});
+
+			})
+
+	}
+
+
+	_toggle = () => {
 
 		this.setState(prevState => ({
 			modal: !prevState.modal
@@ -44,50 +63,18 @@ export default class Marker extends Component {
 	}
 
 
-
-
-	changeHandler = e => {
-
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	};
-
-	componentDidMount() {
-
-		adapter.getMarkerSuggestions()
-			.then(data => {
-
-				let tmp = [...this.state.poll]
-				tmp.unshift(data)
-
-				let stateCopy = tmp[0].filter(s => s.place_id === this.props.placeId);
-
-
-
-
-				this.setState({
-					poll: stateCopy
-				});
-
-			})
-
-	}
-
-
-
 	render() {
 		let formattedAddress = this.props.place.results[0].locations[0].street;
 
 		return (
-			<div onClick={this.toggle} >
+			<div onClick={this._toggle} >
 			<Popup latitude={this.props.latitude} longitude={this.props.longitude} anchor={this.state.anchor} >
 
         <span className="font-Poppins marker-title" >{formattedAddress} ({this.state.poll.length}) </span>
 
 				<MarkerModal
 					modal={this.state.modal}
-					toggle={this.toggle}
+					toggle={this._toggle}
 					address={formattedAddress}
 					currentUser={this.props.currentUser.user.id}
 					currentMarker={this.props.placeId}

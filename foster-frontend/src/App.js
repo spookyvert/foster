@@ -14,7 +14,7 @@ import {
 import {
 	BrowserRouter,
 	Route,
-	Switch,
+	Switch
 } from 'react-router-dom';
 export const history = createBrowserHistory();
 
