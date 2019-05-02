@@ -20,7 +20,7 @@ export const history = createBrowserHistory();
 
 
 
-let zipcode;
+
 export default class App extends Component {
 
 	state = {
@@ -68,7 +68,6 @@ export default class App extends Component {
 		e.preventDefault()
 
 
-		console.log(userInfo);
 		fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/users", {
 				method: "POST",
 				headers: {
@@ -81,12 +80,12 @@ export default class App extends Component {
 			})
 			.then(resp => resp.json())
 			.then(userData => {
-				console.log(userData)
+
 				localStorage.setItem("token", userData.jwt);
 				this.setState({
 					currentUser: userData
 				}, () => {
-					console.log("This is what I'm getting after signing up: ", userData)
+
 				});
 			});
 	};
@@ -94,7 +93,7 @@ export default class App extends Component {
 	loginSubmitHandler = (e, userInfo) => {
 		e.preventDefault()
 
-		console.log('user info is', userInfo)
+
 
 
 		fetch("https://cryptic-chamber-27326.herokuapp.com/api/v1/login", {
@@ -110,19 +109,17 @@ export default class App extends Component {
 			.then(resp => resp.json())
 			.then(userData => {
 
-				zipcode = userData.user.zipcode;
 
 
-				console.log('this is from the login', userData);
 				if (userData.jwt) {
 					localStorage.setItem('token', userData.jwt)
 					this.setState({
 						currentUser: userData
 					}, () => {
-						//
+
 						window.location.reload();
 
-						console.log('app user login', this.state.currentUser.user)
+
 					})
 				} else {
 					document.querySelector(".help-signup").style.display = "block";
@@ -134,13 +131,12 @@ export default class App extends Component {
 
 
 
-		console.log(this.state)
 
 
 	};
 
 	handleLogout = () => {
-		console.log("i've been hit");
+
 		this.setState({
 			currentUser: {}
 		}, () => window.location.reload())
@@ -151,7 +147,6 @@ export default class App extends Component {
 
 
 	render() {
-		// console.log(this.state.currentUser)
 
 		let token = localStorage.getItem('token')
 		if (token) {
@@ -180,7 +175,7 @@ export default class App extends Component {
           <Route
           exact
           path='/'
-          render={ (props) => <Main {...props} currentUser={this.state.currentUser} zipcode={zipcode} handleLogout={this.handleLogout} />
+          render={ (props) => <Main {...props} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
           }
           />
         </Switch>

@@ -46,7 +46,7 @@ export default class Main extends Component {
 
 					let markerPromises = this.state.places.map(place => {
 						const addressParams = place.address.split(" ").join('+')
-						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
+						return fetch(`https://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
 
 					})
 
@@ -123,7 +123,7 @@ export default class Main extends Component {
 					let markerPromises = this.state.places.map(place => {
 
 						const addressParams = place.address.split(" ").join('+')
-						return fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
+						return fetch(`https://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
 
 					}).reverse()
 
@@ -167,11 +167,10 @@ export default class Main extends Component {
 
 	_flyZip = () => {
 
-		fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${this.props.currentUser.user.zipcode}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769&location=New York,NY`)
+		fetch(`https://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${this.props.currentUser.user.zipcode}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769&location=New York,NY`)
 			.then(res => res.json())
 			.then(data => {
 				let u = data.results[0].locations[0].latLng;
-				console.log(u);
 
 				this.setState({
 					viewport: {
@@ -181,7 +180,7 @@ export default class Main extends Component {
 						latitude: u.lat,
 						zoom: 13
 					}
-				}, () => console.log("viewport state", this.state.viewport));
+				});
 
 			})
 	}

@@ -51,7 +51,7 @@ export default class MarkerModal extends Component {
 				place_id: this.props.currentMarker,
 				sugg: suggestion
 			}
-			console.log(userData);
+
 
 			adapter.postSuggestion(userData)
 				.then(data => {
@@ -64,7 +64,7 @@ export default class MarkerModal extends Component {
 
 					}
 					this.props.trigger()
-					console.log("here!");
+
 				})
 
 
