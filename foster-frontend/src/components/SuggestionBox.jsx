@@ -30,6 +30,7 @@ class Autocomplete extends Component {
 	}
 
 	onChange = e => {
+
 		const {
 			suggestions
 		} = this.props;
@@ -46,11 +47,9 @@ class Autocomplete extends Component {
 			filteredSuggestions,
 			showSuggestions: true,
 			userInput: e.currentTarget.value
-		}, () => {
-
-
-
 		});
+
+		this.props.suggestionTracker(e.currentTarget.value)
 	};
 
 	onClick = e => {
@@ -60,6 +59,8 @@ class Autocomplete extends Component {
 			showSuggestions: false,
 			userInput: e.currentTarget.innerText
 		});
+
+		this.props.suggestionTracker(e.currentTarget.innerText)
 	};
 
 	onKeyDown = e => {
@@ -100,6 +101,10 @@ class Autocomplete extends Component {
 
 
 
+
+
+
+
 	render() {
 		const {
 			onChange,
@@ -112,6 +117,10 @@ class Autocomplete extends Component {
 				userInput
 			}
 		} = this;
+
+
+
+
 
 		let suggestionsListComponent;
 

@@ -27,9 +27,15 @@ export default class NewPlace extends Component {
 			user_id: ""
 		},
 		zip: "",
-		currentUser: ""
+		currentUser: "",
+		suggestion: ""
 
 	};
+	suggestionTracker = (input) => {
+		this.setState({
+			suggestion: input
+		})
+	}
 
 	changeHandler = e => {
 		if (e.target.name === "address") {
@@ -85,7 +91,7 @@ export default class NewPlace extends Component {
 
 			<Modal isOpen={this.props.modal} toggle={this.props.toggle}>
 			   <ModalHeader toggle={this.props.toggle} className="font-heavy t-1 ">New Place <i className="fas fa-city"></i></ModalHeader>
-			   <form  autocomplete="off" onSubmit={ (e) => this.props.handleSubmit(e, this.state.place, this.state.zip)}>
+			   <form  autocomplete="off" onSubmit={ (e) => this.props.handleSubmit(e, this.state.place, this.state.zip, this.state.suggestion)}>
 			      <ModalBody>
 			         <div className="row">
 			            <div className="form-body">
@@ -100,6 +106,7 @@ export default class NewPlace extends Component {
 			               <label className="t-2 mt-5">What do <b>you</b> want this location to be?</label>
 
 										 <SuggestionBox
+											 suggestionTracker={this.suggestionTracker}
 	 										suggestions={categoryName}
 	 										   placeholder="eg. Hardware Store"
 	 										/>

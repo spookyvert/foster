@@ -29,7 +29,8 @@ export default class Main extends Component {
 			longitude: 115.8018,
 			zoom: 15
 		},
-		markers: []
+		markers: [],
+		currentSuggestion: ""
 	};
 
 
@@ -84,7 +85,8 @@ export default class Main extends Component {
 
 	}
 
-	handleSubmit = (e, state, zip) => {
+
+	handleSubmit = (e, state, zip, sugg) => {
 		e.preventDefault()
 
 
@@ -103,15 +105,15 @@ export default class Main extends Component {
 				})
 				.then(final => {
 
-
-
-
-					const suggestion = document.querySelector('#suggestionBox').value;
+					const suggestion = sugg;
 					const userData = {
 						user_id: this.props.currentUser.user.id,
 						place_id: tmpID,
 						sugg: suggestion,
 					};
+
+
+
 					adapter.postSuggestion(userData);
 
 					let stateCopy = [...this.state.places]
@@ -149,7 +151,7 @@ export default class Main extends Component {
 					let markerPromises = this.state.places.map(place => {
 
 						const addressParams = place.address.split(" ").join('+')
-						return fetch(`https://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}`)
+						return fetch(`https://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&street=${addressParams}&postalCode=${place.zipcode}&state=NY`)
 
 					}).reverse()
 
@@ -197,7 +199,7 @@ export default class Main extends Component {
 
 	_flyZip = () => {
 
-		fetch(`https://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${this.props.currentUser.user.zipcode}&boundingBox=-171.791110603,18.91619,-66.96466,71.3577635769`)
+		fetch(`https://open.mapquestapi.com/geocoding/v1/address?key=XaTE5vJKwWpGMeLGd1R3uVA9NUri8TTT&postalCode=${this.props.currentUser.user.zipcode}&state=NY`)
 			.then(res => res.json())
 			.then(data => {
 				let u = data.results[0].locations[0].latLng;
@@ -217,7 +219,7 @@ export default class Main extends Component {
 
 
 
-	_locateUser = (zip) => {
+	_locateUser = () => {
 
 
 
@@ -248,7 +250,10 @@ export default class Main extends Component {
 	}
 
 
+
 	render() {
+		console.log(this.state.currentSuggestion);
+
 
 
 		return (
@@ -278,7 +283,7 @@ export default class Main extends Component {
 				 <button id="fly-to-zip" class="zip-btn" onClick={this._flyZip}><i class="fas fa-map-pin"></i></button>
 
 			{this.state.markers}
-			<NewPlace modal={this.state.modal} toggle={this._toggle}  handleSubmit={this.handleSubmit} reRender={this.reRender} />
+			<NewPlace modal={this.state.modal} toggle={this._toggle}  handleSubmit={this.handleSubmit} reRender={this.reRender}  />
 			</ReactMapGL>
 		</div>
 
