@@ -23,12 +23,19 @@ const categoryName = c.map(cat => {
 export default class MarkerModal extends Component {
 
 	state = {
-		card: true
+		card: true,
+		suggestion: "",
+		toggle: true
 	}
 
 	toggleCard = () => {
 		this.setState({
 			card: !this.state.card
+		})
+	}
+	suggestionTracker = (input) => {
+		this.setState({
+			suggestion: input
 		})
 	}
 
@@ -109,22 +116,36 @@ export default class MarkerModal extends Component {
 		return uniques.sort(compareFrequency);
 	}
 
+	toggleFilter = e => {
+		this.setState({
+			toggle: !this.state.toggle
+		})
+	}
+
 
 
 	render() {
+		let allSuggestions;
+		if (this.state.toggle === false) {
+			let tmp = this.props.poll.map(s => s.sugg)
+			let tmp2 = this.sortArray(tmp).reverse()
+
+			allSuggestions = tmp2.map(s => {
+				return <li class="sugg-item">{s}</li>
+			})
 
 
-
-		let tmp = this.props.poll.map(s => s.sugg)
-		let tmp2 = this.sortArray(tmp)
-		const allSuggestions = tmp2.map(s => {
-			return <li class="sugg-item">{s}</li>
-		})
+		} else if (this.state.toggle === true) {
+			let tmp = this.props.poll.map(s => s.sugg)
+			let tmp2 = this.sortArray(tmp)
 
 
+			allSuggestions = tmp2.map(s => {
+				return <li class="sugg-item">{s}</li>
+			})
 
 
-
+		}
 
 
 		if (this.state.card === false) {
@@ -145,6 +166,7 @@ export default class MarkerModal extends Component {
 	                       <SuggestionBox
 	                       suggestions={categoryName}
 	                       placeholder="eg. Bakery"
+												 suggestionTracker={this.suggestionTracker}
 	                     />
 	                  </div>
 	               </div>
@@ -163,9 +185,18 @@ export default class MarkerModal extends Component {
 
 			return (
 				<Modal isOpen={this.props.modal} toggle={this.props.toggle}>
-					 <ModalHeader toggle={this.props.toggle} className="font-heavy t-1 "><span className="title-snd">{this.props.address}</span></ModalHeader>
-					 <form onSubmit={this.handleSubmit}>
-							<ModalBody>
+					 <ModalHeader toggle={this.props.toggle} className="font-heavy t-1 "><span className="title-snd">{this.props.address}</span>
+					 <br/>
+						 <select className="text-tiny text-select" onChange={this.toggleFilter}>
+							<option value='1' >Most Popular</option>
+							<option value='0'>Least Popular</option>
+
+						</select>
+			 </ModalHeader>
+						 <ModalBody>
+
+
+
 								 <div className="row">
 										<div className="form-body">
 											 <ul class="sugg-ul format-ul ">
@@ -180,7 +211,7 @@ export default class MarkerModal extends Component {
 								<span class="all-sugg-btn text-tiny">	<a onClick={this.toggleCard} className="a-no-style a-underline-style ">Add New Suggestion</a></span>
 
 							</ModalFooter>
-					 </form>
+
 				</Modal>
 			)
 

@@ -264,7 +264,7 @@ export default class Main extends Component {
 		      <div className="collapse navbar-collapse" id="navbarSupportedContent">
 		         <ul className="navbar-nav mr-auto">
 		            <li className="nav-item active">
-		               <button className="nav-btn " id="new-place" onClick={this._toggle}> New Place! </button>
+		               <button className="nav-btn text-left-new  " id="new-place" onClick={this._toggle}> New Place! </button>
 									 <button className="nav-btn " id="m-new-place" onClick={this._toggle}><i class="fas fa-plus"></i></button>
 		            </li>
 		         </ul>

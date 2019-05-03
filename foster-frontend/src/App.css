@@ -379,7 +379,7 @@ nav {
   padding: 5px 12px;
   border-radius: 6px;
   margin-top: 7px;
-  text-align: center;
+  margin-right: 4px;
 }
 
 .collapse:not(.show) {
@@ -434,6 +434,28 @@ nav {
   #new-place {
     display: none;
   }
+
+  .nav-logo {
+    position: relative;
+    left: -4vh;
+  }
+
+  .form-body {
+    margin: auto;
+    margin-bottom: 7vh;
+  }
+
+  .mapboxgl-popup-content {
+    border-radius: 20px;
+    padding: 10px 17px 3px;
+    cursor: pointer;
+  }
+
+  .marker-title {
+    position: relative;
+    top: -0.7em;
+    font-size: 9px;
+  }
 }
 
 #fly-to-zip {
@@ -445,8 +467,6 @@ nav {
   display: block;
   /* Remove bullet points; allow greater control of positioning */
   padding: 0;
-  /* Override defaults for lists */
-  margin: 0;
   /* Override defaults for lists */
   width: 100%;
   /* Get the row full width */
@@ -473,4 +493,19 @@ nav {
   }
 
   /* On small screens, show one logo per row */
+}
+
+.modal-body {
+  padding: unset;
+}
+
+.text-select {
+  font-family: Poppins;
+  font-weight: 300;
+}
+
+.text-left-new {
+  position: absolute;
+  left: 28vh;
+  top: 1.5em;
 }
